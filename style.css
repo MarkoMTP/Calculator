@@ -35,20 +35,25 @@ border-bottom: 2px black dotted;
 padding: 10px;
 }
 
-h1 {
+ #naslov{
 text-align: center;
 font-size: 50px;
 font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-#input {
-font-size: 35px;
+ #input {
+font-size: 55px;
 height: 100px;
-
-
-
+color: white;
+text-align: end;
 }
 
 
+
+
+
+
+
+ 
  button {
 color: white;
 font-size: 60px;
@@ -107,5 +112,18 @@ flex-direction: column;
 
 display: flex;
 justify-content: space-between;
+
+}
+
+#second {
+
+color: grey;
+font-size: 22px;
+
+}
+
+button:hover {
+
+    transform: scale(1.1)
 
 }

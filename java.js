@@ -1,35 +1,65 @@
 
-let firstNum = 0;
+const equalBtn = document.getElementById('equal')
+const display = document.getElementById('input');
+const numButton = document.querySelectorAll('#numbers');
+const operateButton = document.querySelectorAll('#operator')
+const clearBtn = document.getElementById('clear');
+const previousNumBtn =  document.getElementById('second');
+
+
+let  previousNum = '';
 let theOperator = '';
-let secondNum = 0;
+let currentNum = '';
 
 
 
 
+   numButton.forEach(button => button.addEventListener('click', () =>  {
+currentNum = button.textContent 
+
+display.textContent += currentNum
+
+}))
 
 
 
-function add(firstNum, secondNum) {
-return firstNum + secondNum;
+
+  operateButton.forEach(button => button.addEventListener('click', () => {
+
+theOperator = button.textContent;
+previousNum = display.textContent
+
+previousNumBtn.textContent +=  previousNum + theOperator ;
+
+display.textContent = ''
+
+}))
+
+ 
+
+
+
+function add(currentNum, previousNum) {
+return currentNum + previousNum;
 
 };
 
-function subtract(firstNum, secondNum) {
-    return firstNum - secondNum;
+function subtract(currentNum, previousNum) {
+  return  currentNum - previousNum
 
 
 };
 
-function multiply(firstNum, secondNum) {
+function multiply(currentNum, previousNum) {
 
-    return firstNum * secondNum;
+    return currentNum * previousNum;
 
 
 };
 
-function divide(firstNum, secondNum) {
+function divide(currentNum, previousNum) {
 
-return firstNum / secondNum;
+return currentNum / previousNum;
     
     
     };
@@ -38,29 +68,30 @@ return firstNum / secondNum;
 
 
 
-function operate(firstNum, theOperator, secondNum) {
+
+function operate(currentNum,theOperator, previousNum) {
     
 if(theOperator === '+') {
 
-return add(firstNum, secondNum)
+return add(currentNum, previousNum)
 
 }
 
 else if(theOperator === '-') {
 
-    return subtract(firstNum, secondNum)
+    return subtract(currentNum, previousNum)
 
 
 }
 else if(theOperator === '*') {
 
-    return multiply(firstNum, secondNum)
+    return multiply(currentNum, previousNum)
 
 
 }
 else if(theOperator === '/') {
 
-    return divide(firstNum, secondNum)
+    return divide(currentNum, previousNum)
 
 
 } else {
@@ -68,8 +99,25 @@ else if(theOperator === '/') {
     return 'Wrong'
 }
 
-
-
 };
 
-console.log(operate(10, '/', 10));
+
+clearBtn.addEventListener('click', () => {
+
+display.textContent = ''
+previousNumBtn.textContent = ''
+});
+
+
+equalBtn.addEventListener('click', () => {
+
+display.textContent = operate(display.textContent,theOperator, previousNum)
+
+})
+    
+
+
+
+
+
+
