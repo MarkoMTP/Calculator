@@ -11,8 +11,8 @@ let  previousNum = '';
 let theOperator = '';
 let currentNum = '';
 
-
-
+let value = '';
+   
 
    numButton.forEach(button => button.addEventListener('click', () =>  {
 currentNum = button.textContent 
@@ -37,6 +37,11 @@ display.textContent = ''
 
  
 
+equalBtn.addEventListener('click', () => {
+ value = operate(previousNum,theOperator,display.textContent )
+    display.textContent = value
+    
+    })
 
 
 function add(currentNum, previousNum) {
@@ -45,9 +50,8 @@ return currentNum + previousNum;
 };
 
 function subtract(currentNum, previousNum) {
+    
   return  currentNum - previousNum
-
-
 };
 
 function multiply(currentNum, previousNum) {
@@ -64,9 +68,7 @@ return currentNum / previousNum;
     
     };
     
-    
-
-
+  
 
 
 function operate(currentNum,theOperator, previousNum) {
@@ -78,6 +80,7 @@ return add(currentNum, previousNum)
 }
 
 else if(theOperator === '-') {
+    
 
     return subtract(currentNum, previousNum)
 
@@ -109,11 +112,6 @@ previousNumBtn.textContent = ''
 });
 
 
-equalBtn.addEventListener('click', () => {
-
-display.textContent = operate(display.textContent,theOperator, previousNum)
-
-})
     
 
 
