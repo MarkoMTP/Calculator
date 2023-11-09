@@ -1,121 +1,92 @@
 
-const equalBtn = document.getElementById('equal')
-const display = document.getElementById('input');
-const numButton = document.querySelectorAll('#numbers');
-const operateButton = document.querySelectorAll('#operator')
-const clearBtn = document.getElementById('clear');
-const previousNumBtn =  document.getElementById('second');
-
-
-let  previousNum = '';
-let theOperator = '';
-let currentNum = '';
-
-let value = '';
-   
-
-   numButton.forEach(button => button.addEventListener('click', () =>  {
-currentNum = button.textContent 
-
-display.textContent += currentNum
-
-}))
+let operator="";
+let previousValue="";
+let currentValue="";
 
 
 
-
-  operateButton.forEach(button => button.addEventListener('click', () => {
-
-theOperator = button.textContent;
-previousNum = display.textContent
-
-previousNumBtn.textContent +=  previousNum + theOperator ;
-
-display.textContent = ''
-
-}))
-
- 
-
-equalBtn.addEventListener('click', () => {
- value = operate(previousNum,theOperator,display.textContent )
-    display.textContent = value
-    
-    })
+let equal = document.getElementById('equal')
+let currentDisplay = document.getElementById('input');
+let numbers = document.querySelectorAll('#numbers');
+let operators = document.querySelectorAll('#operator')
+let clear = document.getElementById('clear');
+let previousDisplay =  document.getElementById('second');
 
 
-function add(currentNum, previousNum) {
-return currentNum + previousNum;
+numbers.forEach((number) => {
+    number.addEventListener("click", (event) => {
+        handleNumber(event.target.textContent);
+        currentDisplay.textContent = currentValue;
+    });
+});
 
-};
+operators.forEach((op) => {
+    op.addEventListener("click", (event) => {
+        handleOperator(event.target.textContent);
+        previousDisplay.textContent = previousValue + " " + operator;
+        currentDisplay.textContent = currentValue;
+    });
+});
 
-function subtract(currentNum, previousNum) {
-    
-  return  currentNum - previousNum
-};
-
-function multiply(currentNum, previousNum) {
-
-    return currentNum * previousNum;
-
-
-};
-
-function divide(currentNum, previousNum) {
-
-return currentNum / previousNum;
-    
-    
-    };
-    
-  
-
-
-function operate(currentNum,theOperator, previousNum) {
-    
-if(theOperator === '+') {
-
-return add(currentNum, previousNum)
-
-}
-
-else if(theOperator === '-') {
-    
-
-    return subtract(currentNum, previousNum)
-
-
-}
-else if(theOperator === '*') {
-
-    return multiply(currentNum, previousNum)
-
-
-}
-else if(theOperator === '/') {
-
-    return divide(currentNum, previousNum)
-
-
-} else {
-
-    return 'Wrong'
-}
-
-};
-
-
-clearBtn.addEventListener('click', () => {
-
-display.textContent = ''
-previousNumBtn.textContent = ''
+clear.addEventListener("click", () => {
+    operator = "";
+    previousValue = "";
+    currentValue = "";
+    previousDisplay.textContent = previousValue;
+    currentDisplay.textContent = currentValue;
 });
 
 
-    
+
+equal.addEventListener("click", () => {
+    let ans = calculate();
+
+    if (ans.toString().length>=10){
+        ans = ans.toFixed(3);
+    }
+
+    previousDisplay.textContent = previousValue + " " + operator + " " + currentValue;
+    currentDisplay.textContent = ans.toString();
+    currentValue = currentDisplay.textContent;
+    operator = "";
+    previousValue = "";
+
+});
 
 
 
+function handleNumber(button) {
+if (currentValue.length>=5){return;}
+currentValue += button; 
+}
 
+function handleOperator(button) {
+operator = button;
+previousValue = currentValue;
+currentValue = ""
+}
 
+function calculate() {
+let num1 = Number(previousValue);
+let num2 = Number(currentValue);
+let ans;
 
+switch (operator) {
+    case "/":
+        ans = num1/num2; 
+        break;
+    case "x":
+        ans = num1*num2;
+        break;
+    case "+":
+        ans = num1+num2;
+        break;
+    case "-":
+        ans = num1-num2;
+        break;
+    default:
+        alert("please enter valid value and operator"); 
+        break;
+}
+return ans;
+}
